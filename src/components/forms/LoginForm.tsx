@@ -49,7 +49,6 @@ export function LoginForm() {
         router.push(`/me`)
       }
     } catch (error) {
-      console.log('error', error)
       if (error instanceof ApiError) {
         setError(error.message)
       }

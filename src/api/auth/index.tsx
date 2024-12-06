@@ -25,7 +25,6 @@ export async function getUser(userId: string) {
 }
 
 export async function checkAccountExists(email: string) {
-  console.log('apiHost', apiHost)
   try {
     const requestUrl = `${apiHost}/auth/check-account`
     const response = await fetch(requestUrl, {
@@ -79,10 +78,11 @@ export async function signup(user: Pick<User, 'email' | 'password' | 'first_name
       return json
       // return json.user
     } else {
-      return json
+      throw json
     }
   } catch (error) {
-    console.error('error', error)
+    console.error('erroradA', error)
+    throw error
   }
 }
 

@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import {
   Form,
   FormControl,
-  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,17 +27,20 @@ export function CheckAccountForm() {
   const form = useForm<FormValues>({
     resolver: zodResolver(checkAccountSchema),
     defaultValues: {
-      email: 'gabrielzzarate@gmail.com'
+      email: ''
     }
   })
 
   async function onSubmit(data: FormValues) {
     const userExists = await checkAccountExists(data.email)
 
+    const encodedEmailParam = encodeURIComponent(data.email)
     if (userExists) {
-      router.push(`/auth/login?email=${data.email}`)
+      // move to login page
+      return router.push(`/auth/login?email=${encodedEmailParam}`)
     }
-    router.push(`/auth/login?email=${data.email}`)
+    // move to signup page
+    return router.push(`/auth/signup?email=${encodedEmailParam}`)
   }
 
   return (
@@ -54,7 +56,6 @@ export function CheckAccountForm() {
                 <FormControl>
                   <Input {...field} placeholder='Your email address' type='email' />
                 </FormControl>
-                {/* <FormDescription>Your emaill address.</FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
